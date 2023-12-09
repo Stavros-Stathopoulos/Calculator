@@ -1,7 +1,9 @@
 # Calculator
 # Simple Calculator with GUI
 
-This is a basic calculator application implemented in Java with a Graphical User Interface (GUI) using Swing. This is how the graphical user interface looks like:
+This is a basic calculator application implemented in Java with a Graphical User Interface (GUI) using Swing. 
+This application was created in the subject of Object Oriented Programing ECE_Y325 of the Electrical and Computer Engineering department of Patras University
+This is how the graphical user interface looks like:
 
 
 ![image](https://github.com/Stavros-Stathopoulos/Calculator/assets/38631315/4c50b56a-6ee9-4d2e-a82d-5dfae2686d6a)

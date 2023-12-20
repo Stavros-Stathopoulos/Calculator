@@ -1,5 +1,7 @@
 package gui;
 
+import calculator.calculator;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -91,8 +93,8 @@ public class MasterPanel extends JPanel {
         JButton button0 =  createButton("0");
         button0.addMouseListener(NumberMouseListener('0'));
 
-        JButton buttonPNT =  createButton(".");
-        buttonPNT.addMouseListener(NumberMouseListener('.'));
+        JButton buttonPNT =  createButton("!");
+        buttonPNT.addMouseListener(NumberMouseListener('!'));
 
         JButton buttonEQ =  createButton("=");
         buttonEQ.addMouseListener(OperatorMouseListener('='));
@@ -154,7 +156,6 @@ public class MasterPanel extends JPanel {
                 }
             };
         }
-
         private MouseAdapter OperatorMouseListener(final char character) {
             return new MouseAdapter() {
                 @Override
@@ -171,18 +172,37 @@ public class MasterPanel extends JPanel {
             JLabel label2 = (JLabel) northPanel.getComponent(0);
             String text = label.getText();
 
-            if(text.equals("0") && !character.equals('C')){
+            if(text.equals("0") && !character.equals('C') && !calculator.isOperator(String.valueOf(character))){
                 label.setText(String.valueOf(character));
+            }
+            else if (calculator.isOperator(String.valueOf(character))){
+                if(text.equals("0")){
+                    label.setText(" " + character + " ");
+                }else {
+                    label.setText(text + " " + character + " ");
+                }
+
+            } else if ( character.equals('!')) {
+                String number = label.getText();
+                label.setText(number + "!");
+                label2.setText(number + "!");
+                label.setText(String.valueOf(calculator.fact(Integer.parseInt(number))));
             }
             else if(character.equals('=')){
                 eq = label.getText();
                 System.out.println(eq);
                 label2.setText(eq);
-                label.setText("Result");
+                String expression = calculator.postFixConverter(eq);
+                label.setText(String.valueOf(calculator.evaluatePostFix(expression)) );
             } else if (character.equals('C')) {
                     label.setText("0");
-                //noinspection UnusedAssignment
                 eq = null;
+            } else if (!label2.equals("") ) {
+
+                label.setText(String.valueOf(character));
+                label2.setText("");
+
+
             } else{
                 label.setText(text + character);
             }
